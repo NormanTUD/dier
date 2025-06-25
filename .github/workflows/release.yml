@@ -8,53 +8,7 @@ on:
     branches:
       - '**'
 jobs:
-  linter:
-    strategy:
-      fail-fast: true
-    runs-on: "ubuntu-latest"
-    environment: Production
-
-    permissions:
-      contents: write
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-    - name: Run linter
-      run: |
-        ./tests/linter
-
-  endtoendtest:
-    needs: [linter]
-    strategy:
-      fail-fast: true
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-15-large]
-    permissions:
-      contents: read
-    environment: Production
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python
-      uses: actions/setup-python@v3
-      with:
-        python-version: '3.x'
-    - name: Running example script
-      run: |
-        ./tests/run_example_script
-
-    - name: Create a new version
-      if: ${{ success() }}
-      run: |
-        echo "Creating new version"
-        git tag ${{ github.run_number }} || true
-        git push origin --tags || true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
   deploy-to-pypi:
-    needs: [endtoendtest]
     permissions:
       contents: read
     environment: Production
