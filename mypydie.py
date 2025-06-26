@@ -4,7 +4,7 @@ import inspect
 from pprint import pprint
 from typing import Any, Union
 
-def dier(*args: Any, exit: Union[bool, int] = False, label: str = "", sleep_before_exit: float = 0.0) -> None:
+def dier(*args: Any, exit: Union[bool, int] = True, label: str = "", sleep_before_exit: float = 0.0) -> None:
     caller = inspect.stack()[1]
     print(f"[DIER] Called from {caller.filename}:{caller.lineno}")
 
