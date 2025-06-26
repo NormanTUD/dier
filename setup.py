@@ -73,7 +73,7 @@ setup(
     long_description=open('README.md', encoding="utf-8").read(),
     long_description_content_type='text/markdown',
     name='mypydie',
-    version='0.2',
+    version='0.3',
     description='dier',
     author='Norman Koch',
     install_requires=install_requires,
